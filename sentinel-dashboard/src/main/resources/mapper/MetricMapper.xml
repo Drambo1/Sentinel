@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alibaba.csp.sentinel.dashboard.datasource.mapper.MetricMapper">
+    <resultMap id="BaseResultMap" type="com.alibaba.csp.sentinel.dashboard.datasource.entity.Metric">
+        <id column="id" property="id" />
+        <result column="app" property="gmtCreate" />
+        <result column="resource" property="gmtModified" />
+        <result column="timestamp" property="app" />
+        <result column="gmt_create" property="timestamp" />
+        <result column="gmt_modified" property="resource" />
+        <result column="pass_qps" property="passQps" />
+        <result column="success_qps" property="successQps" />
+        <result column="block_qps" property="blockQps" />
+        <result column="exception_qps" property="exceptionQps" />
+        <result column="rt" property="rt" />
+        <result column="count" property="count" />
+        <result column="resource_code" property="resourceCode" />
+    </resultMap>
+
+    <insert id="batchInsert">
+        INSERT INTO metric
+        (id, app, resource, timestamp, gmt_create, gmt_modified, pass_qps,
+         success_qps, block_qps, exception_qps, rt, count, resource_code)
+        VALUES
+            <foreach collection="list" separator="," item="item">
+                (
+                 #{item.id,jdbcType=BIGINT},
+                 #{item.app,jdbcType=VARCHAR},
+                 #{item.resource,jdbcType=VARCHAR},
+                 #{item.timestamp,jdbcType=TIMESTAMP},
+                 #{item.gmtCreate,jdbcType=TIMESTAMP},
+                 #{item.gmtModified,jdbcType=TIMESTAMP},
+                 #{item.passQps,jdbcType=BIGINT},
+                 #{item.successQps,jdbcType=BIGINT},
+                 #{item.blockQps,jdbcType=BIGINT},
+                 #{item.exceptionQps,jdbcType=BIGINT},
+                 #{item.rt,jdbcType=DECIMAL},
+                 #{item.count,jdbcType=INTEGER},
+                 #{item.resourceCode,jdbcType=INTEGER}
+                )
+            </foreach>
+    </insert>
+</mapper>
